@@ -1,0 +1,41 @@
+# IDE
+.vscode/
+.idea/
+
+# Node
+node_modules/
+dist/
+build/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Java
+target/
+*.class
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-data/
+
+# Logs
+logs/
+*.log
+
+# Environment
+.env
+
+# Local models
+models/
+
+# Datasets
+data/raw/
+
+# Salesforce / accidental metadata
+.sf/
