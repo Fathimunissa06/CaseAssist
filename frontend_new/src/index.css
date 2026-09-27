@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+/* Class-based dark mode: <html class="dark"> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+
+  /* Ink: cool blue-slate neutrals */
+  --color-ink-50: #f3f5f9;
+  --color-ink-100: #e6eaf2;
+  --color-ink-200: #cdd5e4;
+  --color-ink-300: #a5b1cb;
+  --color-ink-400: #7686a8;
+  --color-ink-500: #55658a;
+  --color-ink-600: #3f4d70;
+  --color-ink-700: #2c3956;
+  --color-ink-800: #1a2540;
+  --color-ink-900: #0f1830;
+  --color-ink-950: #0a1022;
+
+  /* Verdigris: the single interface accent */
+  --color-verdigris-50: #ecfbf8;
+  --color-verdigris-100: #d0f5ee;
+  --color-verdigris-200: #a2e9dd;
+  --color-verdigris-300: #6ad7c8;
+  --color-verdigris-400: #35bfae;
+  --color-verdigris-500: #1fa393;
+  --color-verdigris-600: #178277;
+  --color-verdigris-700: #16685f;
+  --color-verdigris-800: #15534e;
+  --color-verdigris-900: #14443f;
+
+  /* Brass: used only for the brand mark */
+  --color-brass-300: #e6cb8a;
+  --color-brass-400: #d8b45f;
+  --color-brass-500: #c29a3e;
+
+  --animate-reveal: reveal 0.55s cubic-bezier(0.22, 0.7, 0.2, 1) both;
+  --animate-sweep: sweep 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  --animate-pop: pop 0.3s cubic-bezier(0.22, 0.9, 0.3, 1) both;
+  --animate-drift-a: drift-a 30s ease-in-out infinite alternate;
+  --animate-drift-b: drift-b 38s ease-in-out infinite alternate;
+  --animate-drift-c: drift-c 46s ease-in-out infinite alternate;
+  --animate-dot: dot 1.2s ease-in-out infinite;
+
+  @keyframes reveal {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes sweep {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(350%); }
+  }
+  @keyframes pop {
+    from { opacity: 0; transform: scale(0.6); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes drift-a {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to   { transform: translate3d(70px, 50px, 0) scale(1.1); }
+  }
+  @keyframes drift-b {
+    from { transform: translate3d(0, 0, 0) scale(1.05); }
+    to   { transform: translate3d(-60px, 60px, 0) scale(0.95); }
+  }
+  @keyframes drift-c {
+    from { transform: translate3d(0, 0, 0) scale(1); }
+    to   { transform: translate3d(50px, -40px, 0) scale(1.12); }
+  }
+  @keyframes dot {
+    0%, 80%, 100% { opacity: 0.3; transform: translateY(0); }
+    40%           { opacity: 1;   transform: translateY(-3px); }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ink-50 font-sans text-ink-900 antialiased dark:bg-ink-950 dark:text-ink-100;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    letter-spacing: -0.005em;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-verdigris-400) 35%, transparent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-verdigris-500);
+    outline-offset: 2px;
+  }
+  .dark :focus-visible {
+    outline-color: var(--color-verdigris-300);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+}
+
+/* Slim, theme-aware scrollbars */
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--color-ink-400) 50%, transparent) transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
